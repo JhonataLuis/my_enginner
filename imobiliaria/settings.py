@@ -76,11 +76,14 @@ WSGI_APPLICATION = 'imobiliaria.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'bakerage',
+        'NAME': 'brokerage',
         'USER': 'postgres',
         'PASSWORD': 'admin',
         'HOST': 'localhost',
         'PORT': '5432',
+        'OPTIONS': {
+            'options': '-c client_encoding=utf8'
+        }
     }
 }
 
@@ -93,13 +96,6 @@ MEDIA_ROOT = os.path.join( BASE_DIR, 'media')
 # Configurações de arquivos estáticos
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-# Configurações de autenticação
-LOGIN_URL ='login'
-LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'home'
-
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
