@@ -16,21 +16,25 @@ def detalhe_anuncio(request, pk):
     return render(request, 'detalhe_anuncio.html', {'anuncio': anuncio, 'imagens': imagens})
 
 def criar_anuncio(request):
-    if request.method == 'POST':
-        form = AnuncioForm(request.POST)
-        if form.is_valid():
-            anuncio = form.save()
 
-            # Processar as imagens enviadas
-            imagens = request.FILES.getlist('imagens')
-            for imagem in imagens:
-                ImagemAnuncio.objects.create(
-                    anuncio=anuncio,
-                    imagem=imagem
-                )
+        if request.method == 'POST':
+            form = AnuncioForm(request.POST, request.FILES)
 
-            messages.succes(request, 'Anúncio criado com sucesso!')
-            return redirect('detalhe_anuncio', pk=anuncio.pk) 
+
+            if form.is_valid():
+                anuncio = form.save()
+
+                # Processar as imagens enviadas
+                imagens = request.FILES.getlist('imagens')
+                
+                for imagem in imagens:
+                    ImagemAnuncio.objects.create(
+                        anuncio=anuncio,
+                        imagem=imagem
+                    )
+
+                messages.success(request, 'Anúncio criado com sucesso!')
+                return redirect('detalhe_anuncio', pk=anuncio.pk) 
         else:
             form = AnuncioForm()
 

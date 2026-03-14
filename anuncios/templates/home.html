@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="container">
 <h1>Imóveis Disponíveis</h1>
-
 <div class="row">
     {% for anuncio in anuncios %}
         <div class="col-md-4 mb-4">
@@ -18,10 +18,28 @@
                 {% endwith %}
 
                 <div class="card-body">
-                    <h5>{{ anuncio.titulo }}</h5>
+                    <h5 class="card-title">{{ anuncio.titulo }}</h5>
+                    <p class="card-text">
+                        <strong>Tipo: </strong> {{ anuncio.get_tipo_imovel_display }}<br>
+                        <strong>Preço: </strong> {{ anuncio.preco|floatformat:2 }}<br>
+                        <strong>Cidade: </strong> {{ anuncio.cidade }}<br>
+                        <strong>Quartos: </strong> {{ anuncio.quartos }} |
+                        <strong>Banheiros: </strong> {{ anuncio.banheiros }}
+                    </p>
+                    <a href="{% url 'detalhe_anuncio' anuncio.pk %}" class="btn btn-primary btn-sm">
+                        Ver Detalhes
+                    </a>
                 </div>
             </div>
         </div>
+    {% empty %}  
+        <div class="col-12">
+            <div class="alert alert-info">
+                Nenhum imóvel cadastrado.
+                <a href="{% url 'criar_anuncio' %}">Seja o primeiro a anunciar!</a>
+            </div>
+        </div>
     {% endfor %}    
+</div>
 </div>
 {% endblock %}
