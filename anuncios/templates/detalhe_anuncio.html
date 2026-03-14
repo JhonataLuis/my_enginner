@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ anuncio.titulo }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <h1>{{ anuncio.titulo }}</h1>
+
+            <!-- Carrossel de imagens -->
+             {% if imagens %}
+                <div id="carouselImagens" class="carousel slide mb-4" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        {% for imagem in imagens %}
+                            <div class="carousel-item {% if forloop.first %}activate{% endif %}">
+                                <img src="{{ imagem.imagem.url }}" class="d-block w-100" style="height: 400px; object-fit: cover;" alt="Imagem {{ forloop.counter }}">
+                            </div>
+                        {% endfor %}
+                    </div>
+                    {% if imagens|length > 1 %}
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselImagens" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselImagens" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        </button>
+                    {% endif %}
+                </div>
+             {% endif %}
+
+             <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Descrição</h5>
+                    <p class="card-text">{{ anuncio.descricao|linebreaks }}</p>
+                </div> 
+             </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h3>R$ {{ anuncio.preco|floatformat:2 }}</h3>
+                    <hr>
+                    <p><strong>Tipo: </strong>{{ anuncio.get_tipo_imovel_display }}</p>
+                    <p><strong>Endereço:</strong>{{ anuncio.endereco }}</p>
+                    <p><strong>Cidade:</strong>{{ anuncio.cidade }}</p>
+                    <hr>
+                    <p><strong>Quartos:</strong>{{ anuncio.quartos }}</p>
+                    {% if anuncio.area_total %}
+                        <p><strong>Área Total:</strong> {{ anuncio.area_total }} m2</p>
+                    {% endif %}
+                    <hr>
+                    <small class="text-muted">
+                        Anunciado em: {{ anuncio.data_criacao|date:"d/m/Y" }}
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-4">
+    <a href="{% url 'home' %}" class="btn btn-secondary btn-sm">< - Voltar</a>
+</div>
+</div>
+{% endblock %}
