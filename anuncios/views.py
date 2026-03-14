@@ -9,3 +9,29 @@ def home(request):
     anuncios = Anuncio.objects.all().order_by('-data_criacao')
 
     return render(request, 'home.html', {'anuncios': anuncios})
+
+def detalhe_anuncio(request, pk):
+    anuncio = get_object_or_404(Anuncio, pk=pk)
+    imagens = anuncio.imagens.all()
+    return render(request, 'detalhe_anuncio.html', {'anuncio': anuncio, 'imagens': imagens})
+
+def criar_anuncio(request):
+    if request.method == 'POST':
+        form = AnuncioForm(request.POST)
+        if form.is_valid():
+            anuncio = form.save()
+
+            # Processar as imagens enviadas
+            imagens = request.FILES.getlist('imagens')
+            for imagem in imagens:
+                ImagemAnuncio.objects.create(
+                    anuncio=anuncio,
+                    imagem=imagem
+                )
+
+            messages.succes(request, 'Anúncio criado com sucesso!')
+            return redirect('detalhe_anuncio', pk=anuncio.pk) 
+        else:
+            form = AnuncioForm()
+
+        return render(request, 'criar_anuncio.html', {'form':form})   
