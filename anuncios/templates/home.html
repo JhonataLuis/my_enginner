@@ -27,7 +27,7 @@
                         <strong>Banheiros: </strong> {{ anuncio.banheiros }}
                     </p>
                     <a href="{% url 'detalhe_anuncio' anuncio.pk %}" class="btn btn-primary btn-sm">
-                        Ver Detalhes
+                       <i class="bi bi-buildings-fills"></i> Ver Detalhes
                     </a>
                 </div>
             </div>
@@ -36,7 +36,7 @@
         <div class="col-12">
             <div class="alert alert-info">
                 Nenhum imóvel cadastrado.
-                <a href="{% url 'criar_anuncio' %}">Seja o primeiro a anunciar!</a>
+                <a href="{% url 'criar_anuncio' %}"> <i class="bi bi-building"></i> Seja o primeiro a anunciar!</a>
             </div>
         </div>
     {% endfor %}    

@@ -4,17 +4,21 @@ from .models import Anuncio, ImagemAnuncio
 from .forms import AnuncioForm
 
 # Create your views here.
+
+# Função para listar e mostrar todos os anúncios
 def home(request):
     # Mostra todos os anuncios, do mais novo para o mais velho
     anuncios = Anuncio.objects.all().order_by('-data_criacao')
 
     return render(request, 'home.html', {'anuncios': anuncios})
 
+# Função para consultar os detalhes do anúncio
 def detalhe_anuncio(request, pk):
     anuncio = get_object_or_404(Anuncio, pk=pk)
     imagens = anuncio.imagens.all()
     return render(request, 'detalhe_anuncio.html', {'anuncio': anuncio, 'imagens': imagens})
 
+# Função para cadastrar um novo anúncio
 def criar_anuncio(request):
 
         if request.method == 'POST':
@@ -26,7 +30,7 @@ def criar_anuncio(request):
 
                 # Processar as imagens enviadas
                 imagens = request.FILES.getlist('imagens')
-                
+
                 for imagem in imagens:
                     ImagemAnuncio.objects.create(
                         anuncio=anuncio,

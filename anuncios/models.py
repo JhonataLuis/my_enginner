@@ -30,7 +30,7 @@ class Anuncio(models.Model):
     area_total = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
 
     # Controle
-    data_criacao = models.DateTimeField(auto_now_add=True)
+    data_criacao = models.DateTimeField(auto_now_add=True) #está definido para pegar a data e não mostrar na pagina de cadastro
     
 
     def __str__(self):

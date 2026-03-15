@@ -43,12 +43,12 @@
                     <h3>R$ {{ anuncio.preco|floatformat:2 }}</h3>
                     <hr>
                     <p><strong>Tipo: </strong>{{ anuncio.get_tipo_imovel_display }}</p>
-                    <p><strong>Endereço:</strong>{{ anuncio.endereco }}</p>
-                    <p><strong>Cidade:</strong>{{ anuncio.cidade }}</p>
+                    <p><strong>Endereço: </strong>{{ anuncio.endereco }}</p>
+                    <p><strong>Cidade: </strong>{{ anuncio.cidade }}</p>
                     <hr>
-                    <p><strong>Quartos:</strong>{{ anuncio.quartos }}</p>
+                    <p><strong>Quartos: </strong>{{ anuncio.quartos }}</p>
                     {% if anuncio.area_total %}
-                        <p><strong>Área Total:</strong> {{ anuncio.area_total }} m2</p>
+                        <p><strong>Área Total: </strong> {{ anuncio.area_total }} m2</p>
                     {% endif %}
                     <hr>
                     <small class="text-muted">
@@ -59,7 +59,7 @@
         </div>
     </div>
     <div class="mt-4">
-    <a href="{% url 'home' %}" class="btn btn-secondary btn-sm">< - Voltar</a>
+    <a href="{% url 'home' %}" class="btn btn-secondary btn-sm"><i class="bi bi-arrow-left"></i> Voltar</a>
 </div>
 </div>
 {% endblock %}
