@@ -46,9 +46,33 @@ def criar_anuncio(request):
 
 # Função para consultar/editar um anúncio
 def editConsult(request, id):
-     anuncio = get_object_or_404(Anuncio, id=id)
+    anuncio = get_object_or_404(Anuncio, id=id)
 
-     form = AnuncioForm(instance=anuncio)
+    if request.method == "POST":
+        form = AnuncioForm(request.POST, instance=anuncio)
 
-     return render(request, 'edit.html', {'form': form, 'anuncio': anuncio})
+        if form.is_valid():
+             form.save()
+
+             # Adicionar novas imagens enviadas
+             imagens = request.FILES.getlist('imagens')
+             for imagem in imagens:
+                  ImagemAnuncio.objects.create(
+                       anuncio=anuncio,
+                       imagem=imagem
+                  )
+
+             messages.success(request, "Anúncio atualizado com sucesso!")
+             return redirect('detalhe_anuncio', id=anuncio.id)  
+
+    else:
+
+            form = AnuncioForm(instance=anuncio)
+
+    return render(request, 'edit.html', {
+          'form': form, 
+          'anuncio': anuncio
+          })
+
+# Deletar um anúncio
 
