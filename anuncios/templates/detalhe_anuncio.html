@@ -45,8 +45,10 @@
                     <p><strong>Tipo: </strong>{{ anuncio.get_tipo_imovel_display }}</p>
                     <p><strong>Endereço: </strong>{{ anuncio.endereco }}</p>
                     <p><strong>Cidade: </strong>{{ anuncio.cidade }}</p>
+                    <p><strong>UF: </strong>{{ anuncio.estado }}</p>
                     <hr>
                     <p><strong>Quartos: </strong>{{ anuncio.quartos }}</p>
+                    <p><strong>Banheiro: </strong><i class="bi bi-cloud-drizzle"></i> {{ anuncio.banheiro }}</p>
                     {% if anuncio.area_total %}
                         <p><strong>Área Total: </strong> {{ anuncio.area_total }} m2</p>
                     {% endif %}
