@@ -38,7 +38,7 @@ def criar_anuncio(request):
                     )
 
                 messages.success(request, 'Anúncio criado com sucesso!')
-                return redirect('detalhe_anuncio', pk=anuncio.pk) 
+                return redirect('detalhe_anuncio', id=anuncio.id) 
         else:
             form = AnuncioForm()
 
@@ -80,4 +80,20 @@ def delete_imagem(request, id):
      anuncio_id = imagem.anuncio_id
      imagem.delete()
 
+     messages.success(request, "Imagem removida com sucesso!")
+
      return redirect('editConsult', id=anuncio_id)
+
+# Função para deletar um anúncio
+def delete(request, id):
+     
+    anuncio = get_object_or_404(Anuncio, id=id)
+
+    if request.method == "GET":
+        anuncio.delete()
+        messages.success(request, "Anúncio excluído com sucesso!")
+
+        return redirect('home.html')
+        
+    return render(request, 'home.html', {'anuncio': anuncio})
+
