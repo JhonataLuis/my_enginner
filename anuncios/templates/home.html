@@ -21,15 +21,24 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ anuncio.titulo }}</h5>
                         <p class="card-text">
-                            <strong>Tipo: </strong> {{ anuncio.get_tipo_imovel_display }}<br>
-                            <strong>Preço: </strong> {{ anuncio.preco|floatformat:2 }}<br>
-                            <strong>Cidade: </strong> {{ anuncio.cidade }}<br>
+                            <strong>Tipo: </strong><span class="badge bg-primary">{{ anuncio.get_tipo_imovel_display }}</span><br>
+                            <h4 class="text-success fw-bold">R$ {{ anuncio.preco|floatformat:2 }}</h4><br>
+                            <strong class="text-muted mb-2">Cidade: </strong> {{ anuncio.cidade }}<br>
                             <strong>Quartos: </strong> {{ anuncio.quartos }} |
-                            <strong>Banheiros: </strong> {{ anuncio.banheiros }}
+                            <strong>Banheiros: </strong> {{ anuncio.banheiros }} |
+                            {% if anuncio.vagas_garagem != 0 %}
+                                <strong>Garagem: </strong> {{ anuncio.vagas_garagem }}
+                            {% endif %}
                         </p>
-                        <a href="{% url 'detalhe_anuncio' anuncio.pk %}" class="btn btn-primary btn-sm">
-                        <i class="bi bi-buildings-fills"></i> Ver Detalhes
-                        </a>
+                        <div class="d-flex align-items-center">
+                            <a href="{% url 'detalhe_anuncio' anuncio.pk %}" class="btn btn-primary btn-sm">
+                                <i class="bi bi-buildings-fills"></i> Detalhes
+                            </a>
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end ms-auto">
+                                <a class="btn btn-warning btn-sm">Edit</a>
+                                <a class="btn btn-danger btn-sm">Delete</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </a>
