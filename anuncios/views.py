@@ -74,5 +74,10 @@ def editConsult(request, id):
           'anuncio': anuncio
           })
 
-# Deletar um anúncio
+# Deletar imagem do anúncio
+def delete_imagem(request, id):
+     imagem = get_object_or_404(ImagemAnuncio, id=id)
+     anuncio_id = imagem.anuncio_id
+     imagem.delete()
 
+     return redirect('editConsult', id=anuncio_id)

@@ -3,12 +3,17 @@
 {% block content %}
 
 <style>
+    .img-preview{
+        height:120px;
+        object-fit:cover;
+        border-radius:6px;
+    }
     .card img{
-    transition: transform .3s;
+        transition: transform .3s;
     }
 
     .card:hover img{
-    transform: scale(1.05);
+        transform: scale(1.05);
     }
 </style>
 <div class="container mt-4">
@@ -35,14 +40,16 @@
                 <div class="row">
                     {% for imagem in anuncio.imagens.all %}
                     <div class="col-md-3 bm-3">
+                        
                         <div class="card">
-                            <img src="{{ imagem.imagem.url }}" class="img-fluid" style="height:120px; object-fit: cover;">
+                            <img src="{{ imagem.imagem.url }}" class="img-thumbnail me-2 mb-2" style="height:100px; object-fit: cover;">
                             <div class="card-body text-center">
-                                <a href="">
-                                    Remover
+                                <a href="{% url 'delete_imagem' imagem.id %}" class="btn btn-danger btn-sm">
+                                    <i class="bi bi-x-lg"></i> Remover
                                 </a>
                             </div>
                         </div>
+
                     </div>
                     {% empty %}
                     <p>Nenhuma imagem cadastrada.</p>
