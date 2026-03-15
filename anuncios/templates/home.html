@@ -6,7 +6,7 @@
 <div class="row">
     {% for anuncio in anuncios %}
         <div class="col-md-4 mb-4">
-            <a href="{% url 'detalhe_anuncio' anuncio.pk %}" class="dropdown-item">
+            <a href="{% url 'detalhe_anuncio' anuncio.id %}" class="dropdown-item">
                 <div class="card h-100">
                     {% with primeira_imagem=anuncio.imagens.first %}
                         {% if primeira_imagem %}
@@ -31,11 +31,11 @@
                             {% endif %}
                         </p>
                         <div class="d-flex align-items-center">
-                            <a href="{% url 'detalhe_anuncio' anuncio.pk %}" class="btn btn-primary btn-sm">
+                            <a href="{% url 'detalhe_anuncio' anuncio.id %}" class="btn btn-primary btn-sm">
                                 <i class="bi bi-buildings-fills"></i> Detalhes
                             </a>
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end ms-auto">
-                                <a class="btn btn-warning btn-sm">Edit</a>
+                                <a href="{% url 'editConsult' anuncio.id %}" class="btn btn-warning btn-sm">Edit</a>
                                 <a class="btn btn-danger btn-sm">Delete</a>
                             </div>
                         </div>

@@ -13,8 +13,8 @@ def home(request):
     return render(request, 'home.html', {'anuncios': anuncios})
 
 # Função para consultar os detalhes do anúncio
-def detalhe_anuncio(request, pk):
-    anuncio = get_object_or_404(Anuncio, pk=pk)
+def detalhe_anuncio(request, id):
+    anuncio = get_object_or_404(Anuncio, id=id)
     imagens = anuncio.imagens.all()
     return render(request, 'detalhe_anuncio.html', {'anuncio': anuncio, 'imagens': imagens})
 
@@ -43,3 +43,12 @@ def criar_anuncio(request):
             form = AnuncioForm()
 
         return render(request, 'criar_anuncio.html', {'form':form})   
+
+# Função para consultar/editar um anúncio
+def editConsult(request, id):
+     anuncio = get_object_or_404(Anuncio, id=id)
+
+     form = AnuncioForm(instance=anuncio)
+
+     return render(request, 'edit.html', {'form': form, 'anuncio': anuncio})
+
