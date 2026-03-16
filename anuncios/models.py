@@ -10,12 +10,19 @@ class Anuncio(models.Model):
         ('CS', 'Casa'),
         ('CO', 'Comercial'),
         ('TE', 'Terreno'),
-    ]    
+    ]  
+
+    STATUS_IMOVEL = [
+        ('DISPONIVEL', 'Disponível'),
+        ('VENDIDO', 'Vendido'),
+        ('ALUGADO', 'Alugado'),
+    ]  
 
     titulo = models.CharField(max_length=200)
     descricao = models.TextField()
     preco = models.DecimalField(max_digits=10, decimal_places=2)
     tipo_imovel = models.CharField(max_length=2, choices=TIPO_IMOVEL)
+    status_imovel = models.CharField(max_length=20, choices=STATUS_IMOVEL, default='DISPONIVEL')
 
     # Localização
     endereco = models.CharField(max_length=200)
@@ -31,7 +38,7 @@ class Anuncio(models.Model):
 
     # Controle
     data_criacao = models.DateTimeField(auto_now_add=True) #está definido para pegar a data e não mostrar na pagina de cadastro
-    
+    ativo = models.BooleanField(default=True)
 
     def __str__(self):
         return self.titulo    
