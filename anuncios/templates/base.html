@@ -21,7 +21,7 @@
    
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
         <div class="container">
-            <a class="navbar-brand" href="{% url 'home' %}">🏠 Imobiliaria Simple Ltda</a>
+            <a class="navbar-brand" href="{% url 'home' %}"><i class="bi bi-house-heart-fill"></i> Real State Simple</a>
             <div class="navbar-nav">
                 <a class="nav-link" href="{% url 'home' %}">Home</a>
                 <a class="nav-link" href="{% url 'criar_anuncio' %}">Anunciar Imóvel</a>
@@ -29,23 +29,29 @@
         </div>
     </nav>
      <div class="container"></div>
-    <!-- Mensagens -->
-    <div class="container">
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong><i class="bi bi-patch-check-fill"></i> {{ message }}</strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
-                </div>
-            {% endfor %}    
-        {% endif %}    
+        <!-- Mensagens -->
+        <div class="container">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong><i class="bi bi-patch-check-fill"></i> {{ message }}</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+                    </div>
+                {% endfor %}    
+            {% endif %}    
+        </div>
+        <!-- Conteúdo principal -->
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
     </div>
-    <!-- Conteúdo principal -->
-     <main>
-        {% block content %}
-        {% endblock %}
-     </main>
-</div>
+    <!-- Footer -->
+     <footer class="bg-light text-center text-muted text-lg-start mt-5">
+        <div class="text-center p-3" style="background-color: rgba(0,0,0,0.05);">
+            © 2026 Real State Simple - Todos os direitos reservados
+        </div>
+     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
   </body>
 </html>
