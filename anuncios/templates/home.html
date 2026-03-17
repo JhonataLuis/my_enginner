@@ -58,7 +58,7 @@
      <div class="d-flex justify-content-between align-items-center mb-3">
         <h2>Imóveis Disponíveis</h2>
         {% if request.GET.tipo == 'AP' %}
-            <span class="text-muted">{{ total_anuncios }} Apartamentos encontrados</span>
+            <span class="text-muted">{{ total_anuncios }} apartamentos encontrados</span>
             {% elif request.GET.tipo == 'CS' %}
                 <span class="text-muted">{{ total_anuncios }} Casas encontrados</span>
             {% elif request.GET.tipo == 'TE' %}
@@ -77,6 +77,7 @@
                         <i class="bi bi-buildings fs-1 text-primary rounded-start"></i>
                         <h5 class="card-title">Apartamentos</h5>
                         <h6 class="card-subtitle mb-2 text-muted">{{ total_apartamentos }} ofertas </h6>
+                        <p class="text-muted">Clique para ver disponíveis</p>
                     </div>
                 </div>
             </a>
@@ -85,9 +86,9 @@
             <a href="?tipo=CS" class="text-decoration-none">
                 <div class="card h-100 card-hover-effect">
                     <div class="card-body">
-                        <i class="bi bi-house-heart-fill fs-1 rounded-start"></i>
+                        <i class="bi bi-house-heart-fill fs-1 text-primary rounded-start"></i>
                         <h5 class="card-title">Casas e sobrados</h5>
-                        <h6 class="card-subtitle mb-2">{{ total_casas }} ofertas</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ total_casas }} ofertas</h6>
                     </div>
                 </div>
             </a>
@@ -96,9 +97,9 @@
             <a href="?tipo=TE" class="text-decoration-none">
                 <div class="card h-100 card-hover-effect">
                     <div class="card-body">
-                        <i class="bi bi-border-outer fs-1 rounded-start"></i>
+                        <i class="bi bi-border-outer fs-1 text-primary rounded-start"></i>
                         <h5 class="card-title">Terrenos</h5>
-                        <h6 class="card-subtitle mb-2"> {{ total_terrenos }} ofertas</h6>
+                        <h6 class="card-subtitle mb-2 text-muted"> {{ total_terrenos }} ofertas</h6>
                     </div>
                 </div>
             </a>
@@ -107,9 +108,9 @@
             <a href="?tipo=CO" class="text-decoration-none">
             <div class="card h-100 card-hover-effect">
                 <div class="card-body">
-                    <i class="bi bi-building fs-1 rounded-start"></i>
+                    <i class="bi bi-building fs-1 text-primary rounded-start"></i>
                     <h5 class="card-title">Comercial</h5>
-                    <h6 class="card-subtitle mb-2"> {{ total_comercial }} ofertas</h6>
+                    <h6 class="card-subtitle mb-2 text-muted"> {{ total_comercial }} ofertas</h6>
                 </div>
             </div>
             </a>
