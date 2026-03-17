@@ -4,7 +4,7 @@
 <style>
     .card-hover-effect {
         transition: all 0.3s ease;
-        border: 10px solid rgba(0,0,0,0.125);
+        border: 0.1px solid rgba(0,0,0,0.125);
     }
     .card-hover-effect:hover {
         transform: translateY(-5px);
@@ -57,44 +57,62 @@
      <!-- Resultados -->
      <div class="d-flex justify-content-between align-items-center mb-3">
         <h2>Imóveis Disponíveis</h2>
-        <span class="text-muted">{{ total_anuncios }} imóveis encontrados</span>
+        {% if request.GET.tipo == 'AP' %}
+            <span class="text-muted">{{ total_anuncios }} Apartamentos encontrados</span>
+            {% elif request.GET.tipo == 'CS' %}
+                <span class="text-muted">{{ total_anuncios }} Casas encontrados</span>
+            {% elif request.GET.tipo == 'TE' %}
+                <span class="text-muted">{{ total_anuncios }} Terrenos encontrados</span>
+            {% elif request.GET.tipo == 'CS' %}
+                <span class="text-muted">{{ total_anuncios }} Comercial encontrados</span>
+            {% else %}
+            <span class="text-muted">{{ total_anuncios }} imóveis encontrados</span>
+        {% endif %}
     </div>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md row-cols-lg-4 g-3">
         <div class="col">
-            <div class="card h-100 card-hover-effect">
-                <div class="card-body">
-                    <i class="bi bi-buildings rounded-start"></i>
-                    <h5 class="card-title">Apartamentos</h5>
-                    <h6 class="card-subtitle mb-2"> 1.955.714 ofertas</h6>
+            <a href="?tipo=AP" class="text-decoration-none">
+                <div class="card h-100 card-hover-effect">
+                    <div class="card-body">
+                        <i class="bi bi-buildings fs-1 text-primary rounded-start"></i>
+                        <h5 class="card-title">Apartamentos</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ total_apartamentos }} ofertas </h6>
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
         <div class="col">
-            <div class="card h-100 card-hover-effect">
-                <div class="card-body">
-                    <i class="bi bi-house-heart-fill"></i>
-                    <h5 class="card-title">Casas e sobrados</h5>
-                    <h6 class="card-subtitle mb-2"> 1.955.714 ofertas</h6>
+            <a href="?tipo=CS" class="text-decoration-none">
+                <div class="card h-100 card-hover-effect">
+                    <div class="card-body">
+                        <i class="bi bi-house-heart-fill fs-1 rounded-start"></i>
+                        <h5 class="card-title">Casas e sobrados</h5>
+                        <h6 class="card-subtitle mb-2">{{ total_casas }} ofertas</h6>
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
         <div class="col">
-            <div class="card h-100 card-hover-effect">
-                <div class="card-body">
-                    <i class="bi bi-border-outer"></i>
-                    <h5 class="card-title">Terrenos</h5>
-                    <h6 class="card-subtitle mb-2"> 1.955.714 ofertas</h6>
+            <a href="?tipo=TE" class="text-decoration-none">
+                <div class="card h-100 card-hover-effect">
+                    <div class="card-body">
+                        <i class="bi bi-border-outer fs-1 rounded-start"></i>
+                        <h5 class="card-title">Terrenos</h5>
+                        <h6 class="card-subtitle mb-2"> {{ total_terrenos }} ofertas</h6>
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
         <div class="col">
+            <a href="?tipo=CO" class="text-decoration-none">
             <div class="card h-100 card-hover-effect">
                 <div class="card-body">
-                    <i class="bi bi-house-heart-fill"></i>
+                    <i class="bi bi-building fs-1 rounded-start"></i>
                     <h5 class="card-title">Comercial</h5>
-                    <h6 class="card-subtitle mb-2"> 1.955.714 ofertas</h6>
+                    <h6 class="card-subtitle mb-2"> {{ total_comercial }} ofertas</h6>
                 </div>
             </div>
+            </a>
         </div>
     </div>
     <hr>

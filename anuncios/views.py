@@ -37,6 +37,10 @@ def home(request):
     context = {
              'anuncios': anuncios,
              'total_anuncios': anuncios.count(),
+             'total_apartamentos': anuncios.filter(tipo_imovel='AP').count(),
+             'total_casas': anuncios.filter(tipo_imovel='CS').count(),
+             'total_terrenos': anuncios.filter(tipo_imovel='TE').count(),
+             'total_comercial': anuncios.filter(tipo_imovel='CO').count(),
         }
 
     return render(request, 'home.html', context)
