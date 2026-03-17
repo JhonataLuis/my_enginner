@@ -128,14 +128,5 @@ def delete(request, id):
     return render(request, 'home.html', {'anuncio': anuncio})
 
 
-# Função buscar cidades ex: Terreno, Casa, etc.
-def buscar_cidades(request):
-     
-     termo = request.GET.get('term', '')
-     if termo:
-          cidades = Anuncio.objects.filter(
-               cidade_icontains=termo
-          ).values_list('cidade', flat=True).distinct()[:10]
-          return JsonResponse(list(cidades), safe=False)
-     return JsonResponse([], safe=False)
+
 
