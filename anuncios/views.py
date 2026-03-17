@@ -1,5 +1,7 @@
+from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
+from django.db.models import Q
 from .models import Anuncio, ImagemAnuncio
 from .forms import AnuncioForm
 
@@ -7,10 +9,38 @@ from .forms import AnuncioForm
 
 # Função para listar e mostrar todos os anúncios
 def home(request):
-    # Mostra todos os anuncios, do mais novo para o mais velho
-    anuncios = Anuncio.objects.all().order_by('-data_criacao')
+    # Busca e filtros
+    query = request.GET.get('q', '')
+    tipo = request.GET.get('tipo','')
+    cidade = request.GET.get('cidade', '')
 
-    return render(request, 'home.html', {'anuncios': anuncios})
+    anuncios = Anuncio.objects.filter(ativo=True, status_imovel='DISPONIVEL')
+
+    # busca geral
+    if query:
+        anuncios = anuncios.filter(
+             Q(titulo__icontains=query) |
+             Q(descricao__icontains=query) |
+             Q(endereco__icontains=query)
+        )
+    # tipo de imóvel
+    if tipo:
+        anuncios = anuncios.filter(tipo_imovel=tipo)
+
+    # cidade
+    if cidade:
+         anuncios = anuncios.filter(cidade__icontains=cidade)    
+
+        # Mostra todos os anuncios, do mais novo para o mais velho
+    anuncios = anuncios.order_by('-data_criacao')
+
+    context = {
+             'anuncios': anuncios,
+             'total_anuncios': anuncios.count(),
+        }
+
+    return render(request, 'home.html', context)
+        #return render(request, 'home.html', {'anuncios': anuncios})
 
 # Função para consultar os detalhes do anúncio
 def detalhe_anuncio(request, id):
@@ -96,4 +126,16 @@ def delete(request, id):
         return redirect('home.html')
         
     return render(request, 'home.html', {'anuncio': anuncio})
+
+
+# Função buscar cidades ex: Terreno, Casa, etc.
+def buscar_cidades(request):
+     
+     termo = request.GET.get('term', '')
+     if termo:
+          cidades = Anuncio.objects.filter(
+               cidade_icontains=termo
+          ).values_list('cidade', flat=True).distinct()[:10]
+          return JsonResponse(list(cidades), safe=False)
+     return JsonResponse([], safe=False)
 
